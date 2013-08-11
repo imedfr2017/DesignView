@@ -144,30 +144,6 @@ public class ImageUtils
 			if ( fmt.equalsIgnoreCase(formatName) ) return true;
 		return false;
 	}
-	public static BufferedImage openImage()
-	{
-		return openImage("GraphicsUtil");
-	}
-	public static BufferedImage openImage(String appContext)
-	{
-		BufferedImage image = null;
-		try {
-			HFileChooser chooser = new HFileChooser(appContext);
-			chooser.setExtensionFilters(new String[]{"gif","jpg","png","bmp"});
-
-			int returnState = chooser.showOpenDialog(new JWindow());
-
-			if ( returnState == JFileChooser.APPROVE_OPTION )
-			{
-				File file = chooser.getFilteredSelection();
-				image = ImageIO.read(new FileImageInputStream(
-						file));
-			}
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		return image;
-	}
 	public static BufferedImage readImage(String path) 
 		throws IOException,FileNotFoundException
 	{
@@ -235,31 +211,6 @@ public class ImageUtils
 		}
 		return r;
 //		return ImageIO.write(image,formatExtension, new FileImageOutputStream(file));
-	}
-	public static int saveImage(BufferedImage image)
-	{
-		return saveImage(image,"GraphicsUtil");
-	}
-	public static int saveImage(BufferedImage image, String appContext)
-	{
-		int returnState = 0;
-		try {
-			HFileChooser chooser = new HFileChooser(appContext);
-			chooser.setExtensionFilters(new String[]{"gif","jpg","png","bmp"});
-
-			returnState = chooser.showSaveDialog(new JWindow());
-
-			if ( returnState == JFileChooser.APPROVE_OPTION )
-			{
-				File file = chooser.getFilteredSelection();
-				String ext = chooser.parseExtension(file);
-				ImageIO.write(image,ext,new FileImageOutputStream(
-						file));
-			}
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		return returnState;
 	}
 	public static BufferedImage drawFilledTextOnImage(String text, Font font, 
 			Color foreColor, Color fillColor, double imageWidth,
